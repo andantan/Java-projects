@@ -1,5 +1,6 @@
 package TermProjectPrototype.Crawler._11_st;
 
+import TermProjectPrototype.Crawler.Exception.InvalidFlagValueException;
 import TermProjectPrototype.Crawler.Parser;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,10 +9,19 @@ import org.jsoup.select.Elements;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class stParser extends Parser {
+public final class StreetParser extends Parser {
     @Override
     protected Document getDocument(String keyword, String sorter, String webPage) {
-        return super.getDocument(keyword, sorter, webPage);
+        Document document = null;
+
+        try {
+            document = super.getDocument(keyword, sorter, webPage);
+        } catch (InvalidFlagValueException ERO) {
+            System.out.println("[TermProjectPrototype.Crawler._11_st.StreetParser::getDocument]: " + ERO.getMessage());
+            ERO.printStackTrace();
+        }
+
+        return document;
     }
 
     protected ArrayList<Element> getSearchProduct(Document document, int size) {
